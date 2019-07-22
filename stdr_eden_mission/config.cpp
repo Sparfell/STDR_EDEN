@@ -133,7 +133,7 @@ class display3DEN
 		{
 			class Log
 			{
-				items[] += {"STDR_exportToLucy","STDR_exportLayerToLucy","STDR_exportMultiplePosASL","STDR_exportMultiplePos","STDR_exportMultipleClassInArray"};
+				items[] += {"STDR_exportToLucy","STDR_exportLayerToLucy"};
 			};
 			class STDR_exportToLucy
 			{
@@ -148,7 +148,7 @@ class display3DEN
 				action = "do3DENAction ""SelectLayerChildren""; [] call STDR_fnc_3denLucyExportGlobal;";
 				conditionShow = "hoverLayer";
 				picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
-			};
+			};/*
 			class STDR_exportMultiplePosASL
 			{
 				text = "Export positions ASL [_x,_y,_z,_dir]";
@@ -169,10 +169,10 @@ class display3DEN
 				action = "[(get3DENSelected ""object"")] call STDR_fnc_exportMultipleClassInArray;";
 				conditionShow = "selectedObject * hoverObject";
 				picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
-			};
+			};*/
 			class Edit
 			{
-				items[] += {"STDR_defaultLoadout","STDR_medicalBackpack"};
+				items[] += {"STDR_defaultLoadout"};
 			};
 			class STDR_defaultLoadout
 			{
@@ -180,14 +180,14 @@ class display3DEN
 				action = "[(get3DENSelected ""object"")] call STDR_fnc_defaultLoadout;";
 				conditionShow = "selectedObject * hoverObject";
 				picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
-			};
+			};/*
 			class STDR_medicalBackpack
 			{
 				text = "Add default medic equipement in selected units backpacks";
 				action = "[(get3DENSelected ""object"")] call STDR_fnc_medicalBackpack;";
 				conditionShow = "selectedObject * hoverObject";
 				picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
-			};
+			};*/
 		};
 	};
 };
