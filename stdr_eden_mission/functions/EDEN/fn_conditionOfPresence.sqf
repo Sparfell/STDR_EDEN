@@ -4,7 +4,6 @@
  * Parameters
  * 0 - ARRAY of OBECTS : group selected in 3DEN for instance
  *
- * Return : STRING : the text to past in your script
 */
 params ["_objects"];
 {

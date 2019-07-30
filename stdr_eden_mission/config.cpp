@@ -24,6 +24,7 @@ class CfgFunctions
 			class createEndTrigger {};
 			class templateSparfell {};
 			class conditionOfPresence {};
+			class 3denCalculateDistance {};
 		};
 		class LUCY
 		{
@@ -133,7 +134,7 @@ class display3DEN
 		{
 			class Log
 			{
-				items[] += {"STDR_exportToLucy","STDR_exportLayerToLucy"};
+				items[] += {"STDR_exportToLucy","STDR_exportLayerToLucy","STDR_calculateDistance"};
 			};
 			class STDR_exportToLucy
 			{
@@ -148,7 +149,15 @@ class display3DEN
 				action = "do3DENAction ""SelectLayerChildren""; [] call STDR_fnc_3denLucyExportGlobal;";
 				conditionShow = "hoverLayer";
 				picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
-			};/*
+			};
+			class STDR_calculateDistance
+			{
+				text = "Calculate distance";
+				action = "[] call STDR_fnc_3denCalculateDistance;";
+				conditionShow = "true";
+				picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
+			};
+			/*
 			class STDR_exportMultiplePosASL
 			{
 				text = "Export positions ASL [_x,_y,_z,_dir]";
