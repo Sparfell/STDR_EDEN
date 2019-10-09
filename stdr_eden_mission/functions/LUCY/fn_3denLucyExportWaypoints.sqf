@@ -35,15 +35,17 @@ switch (_wpLastType) do {
 			_timer = _x get3DENAttribute "timeout";
 			_wpTimerList = _wpTimerList + _timer;
 		} forEach _wpList;
-		_txt = _strGroup + format ["%1,%2,%3,%4,%5,30,%6] call GDC_fnc_lucyAddWaypointListMoveCycle;",_wpPosList,str(speedMode _group),str(behaviour (leader _group)),str(combatMode _group),str(formation _group),_wpTimerList];
+		_behavior1 = [_group] call STDR_fnc_3denLucyGetGroupBehaviour;
+		_txt = _strGroup + format ["%1,%2,%3,%4,%5,30,%6] call GDC_fnc_lucyAddWaypointListMoveCycle;",_wpPosList,str(_behavior1#0),str(_behavior1#1),str(_behavior1#2),str(_behavior1#3),_wpTimerList];
 	};
 	case "Move": {// Patrouille random dans une zone
 		_NearMarkers = (all3DENEntities #5) select {(((_x get3DENAttribute "position")#0) distance2D _wpLastPos) < 10};
 		_NearMarkers = [_NearMarkers,[_wpLastPos],{(((_x get3DENAttribute "position")#0) distance2D _input0)},"ASCEND",{(((_x get3DENAttribute "markerType")#0) in [0,1])}] call BIS_fnc_sortBy;
+		_behavior1 = [_group] call STDR_fnc_3denLucyGetGroupBehaviour;
 		if ((count _wpList == 1) && (count _NearMarkers > 0)) then {
 			_bList = if (surfaceIsWater _pos) then {["ground"]} else {["water"]};
 			_wpLastType = "MOVE";
-			_txt = _strGroup + format ["%1,[%2,%3,%4,%5,%6],%7] call GDC_fnc_lucyGroupRandomPatrol;",str (_NearMarkers #0),str _wpLastType,str(speedMode _group),str(behaviour (leader _group)),str(combatMode _group),str(formation _group),_bList];
+			_txt = _strGroup + format ["%1,[%2,%3,%4,%5,%6],%7] call GDC_fnc_lucyGroupRandomPatrol;",str (_NearMarkers #0),str _wpLastType,str(_behavior1#0),str(_behavior1#1),str(_behavior1#2),str(_behavior1#3),_bList];
 		} else {
 			_txt =  "//Wps qui finissent en MOVE non pris en compte";
 		};
@@ -56,8 +58,7 @@ switch (_wpLastType) do {
 		} forEach _wpList;
 		_condition = (((_wpList #0) get3DENAttribute "condition")#0);
 		_timeout = (((_wpList #0) get3DENAttribute "timeout")#0);
-		_speed = (((_wpList #0) get3DENAttribute "speedMode")#0);
-		_speed = [_speed] call STDR_fnc_3denLucyConvertSpeed;
+		_speed = [(((_wpList #0) get3DENAttribute "speedMode")#0)] call STDR_fnc_3denLucyConvertSpeed;
 		_behavior1 = [_speed,(((_wpList #0) get3DENAttribute "behaviour")#0),(((_wpList #0) get3DENAttribute "combatMode")#0)];
 		_formation1 = (((_wpList #0) get3DENAttribute "formation")#0);
 		_formation1 = [_formation1] call STDR_fnc_3denLucyConvertFormation;
@@ -105,7 +106,8 @@ switch (_wpLastType) do {
 		_condition = (((_wpList #0) get3DENAttribute "condition")#0);
 		_timeout = (((_wpList #0) get3DENAttribute "timeout")#0);
 		_code = ((_wpLast get3DENAttribute "onActivation")#0);
-		_txt = _txt + (toString [13,10])+(toString [13,10]) + format ["[(_group #1),_groupInf,%1,%2,%3,%4,%5,%6,true] call GDC_fnc_lucyTransportReinforcement;",_wpPosList,_wpPosList2,[(speedMode _group),(behaviour (leader _group)),(combatMode _group)],str _condition,_timeout,str _code];
+		_behavior1 = [_group] call STDR_fnc_3denLucyGetGroupBehaviour;
+		_txt = _txt + (toString [13,10])+(toString [13,10]) + format ["[_veh,_groupInf,%1,%2,%3,%4,%5,%6,true] call GDC_fnc_lucyTransportReinforcement;",_wpPosList,_wpPosList2,[(_behavior1#0),(_behavior1#1),(_behavior1#2)],str _condition,_timeout,str _code];
 	
 	};
 	default {

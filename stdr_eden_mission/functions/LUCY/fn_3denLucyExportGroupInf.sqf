@@ -26,12 +26,19 @@ _types = [];
 {
 	_types = _types + [typeOf _x];
 } forEach _units;
-_txt = format ["_groupInf = [%1,%2,%3,%4] call GDC_fnc_lucySpawnGroupInf;",_pos,_side,_types,_skill];
+_txt = format ["_groupInf = [%1,%2,%3,%4] call GDC_fnc_lucySpawnGroupInf;",_pos,([_side] call STDR_fnc_3denLucyConvertSide),_types,_skill];
 _txtFinal = _txtFinal + _br + _txt;
 
 //Cas d'une Patrouille avec waypoints
 if (count _wpList > 0) then {
 	_txt = [_group,_wpList,0] call STDR_fnc_3denLucyExportWaypoints;
+	_txtFinal = _txtFinal + _br + _txt;
+};
+
+//PLUTO
+_txt = [_group] call STDR_fnc_3denLucyPluto;
+if (count _txt > 0) then {
+	_txt = "_groupInf " + _txt;
 	_txtFinal = _txtFinal + _br + _txt;
 };
 

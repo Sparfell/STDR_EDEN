@@ -8,12 +8,17 @@
  * Return : STRING : the text to past in your script
 */
 //TODO : include or exclude civilians (condition as parameter)
-
+params [["_export_type",0]];
 private ["_allIAgroups","_allWP","_infantryGroups","_staticUnitsGroups","_group","_txt","_txtFinal","_br","_validatedGroups","_ignoredGroups","_driverFound","_gunnerFound"];
 
 _txt = "";
 _txtFinal = "";
 _br = toString [13,10];
+
+STDR_vehicleExportMode = 0;
+if (_export_type > 0) then {
+	STDR_vehicleExportMode = 1;
+};
 
 _globalExport = false;
 _allIAgroups = [];

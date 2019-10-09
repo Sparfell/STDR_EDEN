@@ -36,6 +36,9 @@ class CfgFunctions
 			class 3denLucyExportGlobal {};
 			class 3denLucyConvertFormation {};
 			class 3denLucyConvertSpeed {};
+			class 3denLucyConvertSide {};
+			class 3denLucyGetGroupBehaviour {};
+			class 3denLucyPluto {};
 			class getDirFromLocation {};
 		};
 	};
@@ -134,12 +137,19 @@ class display3DEN
 		{
 			class Log
 			{
-				items[] += {"STDR_exportToLucy","STDR_exportLayerToLucy","STDR_calculateDistance"};
+				items[] += {"STDR_exportToLucy","STDR_exportLayerToLucy","STDR_exportToLucy_2","STDR_calculateDistance"};
 			};
 			class STDR_exportToLucy
 			{
 				text = "Export to LUCY";
 				action = "[] call STDR_fnc_3denLucyExportGlobal;";
+				conditionShow = "selectedObject * hoverGroup";
+				picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
+			};
+			class STDR_exportToLucy_2
+			{
+				text = "Export to LUCY (variant)";
+				action = "[1] call STDR_fnc_3denLucyExportGlobal;";
 				conditionShow = "selectedObject * hoverGroup";
 				picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
 			};
@@ -279,6 +289,17 @@ class Cfg3DEN
 						class Text2
 						{
 							text = "<t underline='1'><%2>Groupe transporté :<%3></t><br/><br/>Pour désigner le groupe transporté, le leader de ce groupe doit être synchronisé avec le véhicule.<br/><br/>Il est possible de donner des WPs au groupe transporté (patrouille, renfort, etc) ceux-ci ne seront effécutés que lorsque le groupe aura été débarqué sur le WP ""Transport Unload"" du véhicule.";
+						};
+					};
+				};
+				class STDR_exportToLucy_Pluto
+				{
+					displayName = "Intégration de PLUTO";
+					class Steps
+					{
+						class Text1
+						{
+							text = "Vous pouvez donner un ordre PLUTO à un groupe.<br/><br/>Dans les attributs du groupe remplissez le cadre ""Callsign"" avec l'une des options suivantes :<br/><br/>- <%2>pluto_qrf<%3><br/>- <%2>pluto_arty<%3><br/>- <%2>pluto_ignore<%3>";
 						};
 					};
 				};
