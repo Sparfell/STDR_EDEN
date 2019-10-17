@@ -21,6 +21,11 @@ _br = toString [13,10];
 _veh = vehicle (leader _group);
 _units = units _group;
 _pos = (getpos _veh);
+if (surfaceIsWater _pos) then {
+	_pos = (getposASL _veh);
+} else {
+	_pos = (getposATL _veh);
+};
 //_pos = [_pos #0,_pos #1,((_pos #2) + 0.1)];
 _side = [side _group] call STDR_fnc_3denLucyConvertSide;
 _skill = skill (leader _group);

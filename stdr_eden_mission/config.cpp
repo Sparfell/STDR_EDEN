@@ -17,9 +17,6 @@ class CfgFunctions
 		class EDEN
 		{
 			file = "stdr_eden\stdr_eden_mission\functions\EDEN";
-			class exportMultiplePos {};
-			class exportMultipleClassInArray {};
-			class medicalBackpack {};
 			class defaultLoadout {};
 			class createEndTrigger {};
 			class templateSparfell {};
@@ -52,53 +49,6 @@ class display3DEN
 {
 	class Controls
 	{
-		class PanelRight: ctrlControlsGroupNoScrollbars
-		{
-			class Controls
-			{
-				class PanelRightCreate: ctrlControlsGroupNoScrollbars
-				{
-					class Controls
-					{
-						class Create: ctrlControlsGroupNoScrollbars
-						{
-							class Controls
-							{
-								class CreateObjectWEST: ctrlTree
-								{
-									defaultItem[] = {"Default"};
-								};
-								class CreateObjectEAST: CreateObjectWEST
-								{
-									defaultItem[] = {"Rien"};
-								};
-								class CreateObjectGUER: CreateObjectWEST
-								{
-									defaultItem[] = {"Default"};
-								};
-								class CreateObjectCIV: CreateObjectWEST
-								{
-									defaultItem[] = {"Default"};
-								};
-								class CreateObjectEMPTY;
-								class CreateGroupWEST: CreateObjectEMPTY
-								{
-									defaultItem[] = {};
-								};
-								class CreateGroupEAST: CreateObjectEMPTY
-								{
-									defaultItem[] = {};
-								};
-								class CreateGroupGUER: CreateObjectEMPTY
-								{
-									defaultItem[] = {};
-								};
-							};
-						};
-					};
-				};
-			};
-		};
 		class MenuStrip: ctrlMenuStrip
 		{
 			class Items
@@ -167,28 +117,6 @@ class display3DEN
 				conditionShow = "true";
 				picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
 			};
-			/*
-			class STDR_exportMultiplePosASL
-			{
-				text = "Export positions ASL [_x,_y,_z,_dir]";
-				action = "[(get3DENSelected ""object""),0] call STDR_fnc_exportMultiplePos;";
-				conditionShow = "selectedObject * hoverObject";
-				picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
-			};
-			class STDR_exportMultiplePos
-			{
-				text = "Export positions [_x,_y,_z]";
-				action = "[(get3DENSelected ""object""),1] call STDR_fnc_exportMultiplePos;";
-				conditionShow = "selectedObject * hoverObject";
-				picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
-			};
-			class STDR_exportMultipleClassInArray
-			{
-				text = "Export classnames [""_class"",""_class"",etc]";
-				action = "[(get3DENSelected ""object"")] call STDR_fnc_exportMultipleClassInArray;";
-				conditionShow = "selectedObject * hoverObject";
-				picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
-			};*/
 			class Edit
 			{
 				items[] += {"STDR_defaultLoadout"};
@@ -199,14 +127,7 @@ class display3DEN
 				action = "[(get3DENSelected ""object"")] call STDR_fnc_defaultLoadout;";
 				conditionShow = "selectedObject * hoverObject";
 				picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
-			};/*
-			class STDR_medicalBackpack
-			{
-				text = "Add default medic equipement in selected units backpacks";
-				action = "[(get3DENSelected ""object"")] call STDR_fnc_medicalBackpack;";
-				conditionShow = "selectedObject * hoverObject";
-				picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
-			};*/
+			};
 		};
 	};
 };
