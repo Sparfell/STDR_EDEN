@@ -1,4 +1,4 @@
-params ["_group","_wpList","_mode"];
+params ["_group","_wpList","_mode",["_exportmode",0]];
 private [
 	"_strGroup","_wpLast","_wpLastType","_wpLastPos","_txt",
 	"_wpTimerList","_bList","_NearMarkers",
@@ -8,7 +8,7 @@ private [
 
 _txt = "";
 if (_mode == 1) then {
-	_strGroup = "[(_group #0),";
+	_strGroup = "[_group,";
 } else {
 	_strGroup = "[_groupInf,";
 };
@@ -36,7 +36,8 @@ switch (_wpLastType) do {
 			_wpTimerList = _wpTimerList + _timer;
 		} forEach _wpList;
 		_behavior1 = [_group] call STDR_fnc_3denLucyGetGroupBehaviour;
-		_txt = _strGroup + format ["%1,%2,%3,%4,%5,30,%6] call GDC_fnc_lucyAddWaypointListMoveCycle;",_wpPosList,str(_behavior1#0),str(_behavior1#1),str(_behavior1#2),str(_behavior1#3),_wpTimerList];
+		_txt = _strGroup + format ["%1,%2,%3,%4,%5,0,%6,0] call GDC_fnc_lucyAddWaypointListMoveCycle;",_wpPosList,str(_behavior1#0),str(_behavior1#1),str(_behavior1#2),str(_behavior1#3),_wpTimerList];
+		//_txt = _strGroup + format ["%1,%2,%3,%4,%5,0,0,%6] call STDR_fnc_patrol;",_wpPosList,str(_behavior1#0),str(_behavior1#1),str(_behavior1#2),str(_behavior1#3),_wpTimerList];
 	};
 	case "Move": {// Patrouille random dans une zone
 		_NearMarkers = (all3DENEntities #5) select {(((_x get3DENAttribute "position")#0) distance2D _wpLastPos) < 10};
@@ -50,6 +51,7 @@ switch (_wpLastType) do {
 			_txt =  "//Wps qui finissent en MOVE non pris en compte";
 		};
 	};
+	case "Hold";
 	case "SeekAndDestroy": {// Renfort
 		_wpPosList = [];
 		{
@@ -68,7 +70,11 @@ switch (_wpLastType) do {
 		_formation2 = ((_wpLast get3DENAttribute "formation")#0);
 		_formation2 = [_formation2] call STDR_fnc_3denLucyConvertFormation;
 		_code = ((_wpLast get3DENAttribute "onActivation")#0);
-		_wpLastType = "SAD";
+		if (_wpLastType == "Hold") then {
+			_wpLastType = "MOVE";
+		} else {
+			_wpLastType = "SAD";
+		};
 		// pour patrol (dernier param)
 		_NearMarkers = (all3DENEntities #5) select {(((_x get3DENAttribute "position")#0) distance2D _wpLastPos) < 10};
 		_NearMarkers = [_NearMarkers,[_wpLastPos],{(((_x get3DENAttribute "position")#0) distance2D _input0)},"ASCEND",{(((_x get3DENAttribute "markerType")#0) in [0,1])}] call BIS_fnc_sortBy;
@@ -111,7 +117,7 @@ switch (_wpLastType) do {
 	
 	};
 	default {
-		_txt =  "//Wps non pris en compte";
+		_txt =  "//ERREUR : Wps non pris en compte";
 	};
 };
 _txt;

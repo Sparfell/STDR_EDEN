@@ -18,8 +18,6 @@ class CfgFunctions
 		{
 			file = "stdr_eden\stdr_eden_mission\functions\EDEN";
 			class defaultLoadout {};
-			class createEndTrigger {};
-			class templateSparfell {};
 			class conditionOfPresence {};
 			class 3denCalculateDistance {};
 		};
@@ -61,22 +59,12 @@ class display3DEN
 				{
 					text = "Outils STDR";
 					picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
-					items[] = {"STDR_exportToLucy","STDR_createEndTrigger","STDR_templateSparfell"};
-				};
-				class STDR_createEndTrigger
-				{
-					text = "Create end radio trigger";
-					action = "[] call STDR_fnc_createEndTrigger;";
-				};
-				class STDR_templateSparfell
-				{
-					text = "Template COOP Sparfell";
-					action = "[] call STDR_fnc_templateSparfell;";
+					items[] = {"STDR_exportToLucy"};
 				};
 				class STDR_exportToLucy
 				{
 					text = "Export to LUCY";
-					action = "[] call STDR_fnc_3denLucyExportGlobal;";
+					action = "[1] call STDR_fnc_3denLucyExportGlobal;";
 				};
 			};
 		};
@@ -87,15 +75,16 @@ class display3DEN
 		{
 			class Log
 			{
-				items[] += {"STDR_exportToLucy","STDR_exportLayerToLucy","STDR_exportToLucy_2","STDR_calculateDistance"};
+				items[] += {"STDR_exportToLucy","STDR_exportLayerToLucy","STDR_calculateDistance"};
 			};
 			class STDR_exportToLucy
 			{
 				text = "Export to LUCY";
-				action = "[] call STDR_fnc_3denLucyExportGlobal;";
+				action = "[1] call STDR_fnc_3denLucyExportGlobal;";
 				conditionShow = "selectedObject * hoverGroup";
 				picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
 			};
+			/*
 			class STDR_exportToLucy_2
 			{
 				text = "Export to LUCY (variant)";
@@ -103,10 +92,11 @@ class display3DEN
 				conditionShow = "selectedObject * hoverGroup";
 				picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
 			};
+			*/
 			class STDR_exportLayerToLucy
 			{
 				text = "Export Layer to LUCY";
-				action = "do3DENAction ""SelectLayerChildren""; [] call STDR_fnc_3denLucyExportGlobal;";
+				action = "do3DENAction ""SelectLayerChildren""; [1] call STDR_fnc_3denLucyExportGlobal;";
 				conditionShow = "hoverLayer";
 				picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
 			};
@@ -186,7 +176,7 @@ class Cfg3DEN
 					{
 						class Text1
 						{
-							text = "Si le dernier WP d'un groupe est de type <%2>SAD<%3> (Seek and Destroy), le groupe sera considéré comme un groupe de renfort.<br/><br/>Le mouvement du groupe de renfort s'éffectue en 2 phases :<br/>- <%2>L'approche<%3> : tous les WPs jusqu'à l'avant dernier.<br/>- <%2>L'assaut<%3> : mouvement qui va de l'avant dernier au dernier WP.";
+							text = "Si le dernier WP d'un groupe est de type <%2>SAD<%3> (Seek and Destroy) ou <%2>Hold<%3>, le groupe sera considéré comme un groupe de renfort.<br/><br/>Le mouvement du groupe de renfort s'éffectue en 2 phases :<br/>- <%2>L'approche<%3> : tous les WPs jusqu'à l'avant dernier.<br/>- <%2>L'assaut<%3> : mouvement qui va de l'avant dernier au dernier WP.<br/><br/>Note : Si le dernier WP est de type <%2>Hold<%3> il sera de type <%2>MOVE<%3> dans le script. Ceci peut être utile si vous ne voulez pas que le groupe bouge dans tous les sens une fois arrivé à destination.";
 						};
 						class Text2
 						{
@@ -220,7 +210,7 @@ class Cfg3DEN
 					{
 						class Text1
 						{
-							text = "Vous pouvez donner un ordre PLUTO à un groupe.<br/><br/>Dans les attributs du groupe remplissez le cadre ""Callsign"" avec l'une des options suivantes :<br/><br/>- <%2>pluto_qrf<%3><br/>- <%2>pluto_arty<%3><br/>- <%2>pluto_ignore<%3>";
+							text = "Vous pouvez donner un ordre PLUTO à un groupe.<br/><br/>Dans les attributs du groupe remplissez le cadre ""Init"" avec l'une des options suivantes :<br/><br/>- <%2>pluto_qrf<%3><br/>- <%2>pluto_arty<%3><br/>- <%2>pluto_ignore<%3>";
 						};
 					};
 				};

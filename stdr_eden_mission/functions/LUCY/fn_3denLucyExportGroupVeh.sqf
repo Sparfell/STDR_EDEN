@@ -9,9 +9,9 @@
 */
 params ["_group"];
 private [
-	"_txt","_txtFinal","_br","_string",
+	"_txt","_txtFinal","_br","_string","_exportmode",
 	"_veh","_pos","_side","_vehname","_units",
-	"_skill","_types","_wpList","_flyparam"
+	"_skill","_types","_wpList","_flyparam","_speed"
 ];
 
 _txt = "";
@@ -39,7 +39,13 @@ _types = [];
 // Spawn du groupe
 if ((STDR_vehicleExportMode > 0) OR ((_veh isKindOf "air") && (_pos#2 > 25))) then {
 	if ((_veh isKindOf "air") && (_pos#2 > 25)) then {
-		_flyparam = ["FLY",_pos#2,(if (_veh iskindof "Helicopter") then {0} else {300})];
+		if (_veh iskindof "Helicopter") then {
+			_speed = 0;
+		} else {
+			_speed = getNumber (configfile >> "CfgVehicles" >> (typeOf _veh) >> "maxSpeed");
+			_speed = ((_speed / 3) min 300) max 100;
+		};
+		_flyparam = ["FLY",_pos#2,_speed];
 	} else {
 		_flyparam = ["NONE",0,0];
 	};
@@ -47,7 +53,8 @@ if ((STDR_vehicleExportMode > 0) OR ((_veh isKindOf "air") && (_pos#2 > 25))) th
 	_txtFinal = _txtFinal + _br + _txt;
 	[_units + [_veh]] call STDR_fnc_conditionOfPresence;
 	_txtFinal = _txtFinal + _br + "_veh = _group #1; _group = _group #0;";
-} else {
+	_exportmode = 1;
+} else { // Export avec seulement le spawn du crew :  déprécié
 	_vehname = (_veh get3DENAttribute "Name")#0;
 	if (_vehname == "") then {
 		_vehname = format ["stdr_lucy_vehicle_%1_%2",(round (_pos#0)),(round (_pos#1))];
@@ -58,11 +65,12 @@ if ((STDR_vehicleExportMode > 0) OR ((_veh isKindOf "air") && (_pos#2 > 25))) th
 	_txtFinal = _txtFinal + _br + _txt;
 	[_units] call STDR_fnc_conditionOfPresence;
 	_txtFinal = _txtFinal + _br + (format ["_veh = %1;",_vehname]);
+	_exportmode = 0;
 };
 
 //Cas d'une Patrouille avec waypoints
 if (count _wpList > 0) then {
-	_txt = [_group,_wpList,1] call STDR_fnc_3denLucyExportWaypoints;
+	_txt = [_group,_wpList,1,_exportmode] call STDR_fnc_3denLucyExportWaypoints;
 	_txtFinal = _txtFinal + _br + _txt;
 };
 
