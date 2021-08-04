@@ -20,6 +20,7 @@ class CfgFunctions
 			class defaultLoadout {};
 			class conditionOfPresence {};
 			class 3denCalculateDistance {};
+			class createzeusmodule {};
 		};
 		class LUCY
 		{
@@ -59,12 +60,32 @@ class display3DEN
 				{
 					text = "Outils STDR";
 					picture = "\stdr_eden\stdr_eden_mission\data\gdc_icon_32.paa";
-					items[] = {"STDR_exportToLucy"};
+					items[] = {"STDR_exportToLucy","STDR_exportOpforToLucy","STDR_exportIndependentToLucy","STDR_exportBluforToLucy","STDR_createzeusmodule"};
 				};
 				class STDR_exportToLucy
 				{
 					text = "Export to LUCY";
 					action = "[1] call STDR_fnc_3denLucyExportGlobal;";
+				};
+				class STDR_exportOpforToLucy
+				{
+					text = "Export OPFOR to LUCY";
+					action = "[1,""opfor""] call STDR_fnc_3denLucyExportGlobal;";
+				};
+				class STDR_exportIndependentToLucy
+				{
+					text = "Export INDEP to LUCY";
+					action = "[1,""independent""] call STDR_fnc_3denLucyExportGlobal;";
+				};
+				class STDR_exportBluforToLucy
+				{
+					text = "Export BLUFOR to LUCY";
+					action = "[1,""blufor""] call STDR_fnc_3denLucyExportGlobal;";
+				};
+				class STDR_createzeusmodule
+				{
+					text = "Create Debug Zeus Module";
+					action = "[] call STDR_fnc_createzeusmodule;";
 				};
 			};
 		};

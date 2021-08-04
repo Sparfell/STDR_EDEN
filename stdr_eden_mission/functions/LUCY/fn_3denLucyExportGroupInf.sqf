@@ -17,7 +17,8 @@ _br = toString [13,10];
 _pos = getpos (leader _group);
 _side = side _group;
 _units = units _group;
-_skill = skill (leader _group);
+_skill = (((leader _group) get3DENAttribute "skill")#0);
+
 _wpList = all3DENEntities #4;
 _wpList = _wpList select {(_x #0) == _group};
 

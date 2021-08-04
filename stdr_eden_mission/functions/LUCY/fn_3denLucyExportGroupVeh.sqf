@@ -28,7 +28,7 @@ if (surfaceIsWater _pos) then {
 };
 //_pos = [_pos #0,_pos #1,((_pos #2) + 0.1)];
 _side = [side _group] call STDR_fnc_3denLucyConvertSide;
-_skill = skill (leader _group);
+_skill = (((leader _group) get3DENAttribute "skill")#0);
 _wpList = all3DENEntities #4;
 _wpList = _wpList select {(_x #0) == _group};
 _types = [];
