@@ -231,7 +231,7 @@ class Cfg3DEN
 					{
 						class Text1
 						{
-							text = "Vous pouvez donner un ordre PLUTO à un groupe.<br/><br/>Dans les attributs du groupe remplissez le cadre ""Init"" avec l'une des options suivantes :<br/><br/>- <%2>pluto_qrf<%3><br/>- <%2>pluto_arty<%3><br/>- <%2>pluto_ignore<%3>";
+							text = "Vous pouvez donner un ordre PLUTO à un groupe.<br/><br/>Dans les attributs du groupe remplissez le cadre ""Init"" avec l'une des options suivantes :<br/><br/>- <%2>pluto_qrf;<%3><br/>- <%2>pluto_arty;<%3><br/>- <%2>pluto_ignore;<%3><br/><br/>Vous pouvez aussi définir les autres paramètres de PLUTO en écrivant par exemple :<br/><%2>pluto_qrf;pluto_qrfrange=2500;<%3><br/>ou<br/><%2>pluto_arty;pluto_artyrange=""markername"";pluto_artyrounds=[4,6,8];<%3><br/>ou<br/><%2>pluto_revelrange=3000;<%3>";
 						};
 					};
 				};

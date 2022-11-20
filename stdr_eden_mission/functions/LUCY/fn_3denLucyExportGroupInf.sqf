@@ -37,9 +37,8 @@ if (count _wpList > 0) then {
 };
 
 //PLUTO
-_txt = [_group] call STDR_fnc_3denLucyPluto;
+_txt = [_group,"_groupInf"] call STDR_fnc_3denLucyPluto;
 if (count _txt > 0) then {
-	_txt = "_groupInf " + _txt;
 	_txtFinal = _txtFinal + _br + _txt;
 };
 
